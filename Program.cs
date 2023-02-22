@@ -1,12 +1,22 @@
+using BlazorWebApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text.Json;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
+builder.Services.AddHttpClient<IApiService, ApiService>
+    (client =>
+    {
+        client.BaseAddress = new Uri("https://localhost:7266/");
+    });
 
 var app = builder.Build();
 
