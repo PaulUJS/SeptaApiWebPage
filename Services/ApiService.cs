@@ -1,6 +1,9 @@
 ﻿using BlazorWebApp.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace BlazorWebApp.Services
 {
@@ -13,11 +16,12 @@ namespace BlazorWebApp.Services
             this.httpClient = _httpClient;
         }
 
-        public async Task<IEnumerable<ApiModel>> getData(string id)
+        public async Task<RootModel> getData(string id)
         {
-            Console.Write(id);
-            await using Stream stream = await httpClient.GetStreamAsync($"https://www3.septa.org/api/TransitView/index.php/{id}"); 
-            return await JsonSerializer.DeserializeAsync<ApiModel[]>(stream); ;
+   
+            string response = await httpClient.GetStringAsync($"https://www3.septa.org/api/TransitView/index.php/{id}");
+            RootModel data = JsonConvert.DeserializeObject<RootModel>(response);
+            return data;
         }
 
        

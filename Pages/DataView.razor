@@ -1,0 +1,52 @@
+﻿@page "/data"
+@using BlazorWebApp.Services
+@using BlazorWebApp.Models
+@inject IApiService _ApiService
+
+@if (data == null)
+{
+    <h2>Loading...</h2>
+}
+else
+{
+    @if (data.model != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Route Number: </th>
+                    <th>Direction: </th>
+                    <th>Destination: </th>
+                    <th>Seating Available: </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in data.model)
+                {
+                    <tr>
+                        <th>@item.Direction </th>
+                        <th>@item.destination </th>
+                        <th>@item.estimated_seat_availability</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>Finished!</h2>
+    }
+}
+
+@code {
+    private string? routeNum;
+
+    private RootModel data = null;
+    protected override async Task OnInitializedAsync()
+    {
+        routeNum = "47";
+        await base.OnInitializedAsync();
+        data = await _ApiService.getData(routeNum);
+        return;
+    }
+}

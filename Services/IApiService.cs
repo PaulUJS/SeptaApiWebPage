@@ -4,6 +4,6 @@ namespace BlazorWebApp.Services
 {
     public interface IApiService
     {
-        Task<IEnumerable<ApiModel>> getData(string id);
+        Task<RootModel> getData(string id);
     }
 }
