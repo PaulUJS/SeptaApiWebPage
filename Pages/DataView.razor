@@ -9,38 +9,37 @@
 }
 else
 {
-    @if (data.model != null)
+    @if (data.bus != null)
     {
         <table class="table">
             <thead>
                 <tr>
-                    <th>Route Number: </th>
+                    <th>Bus ID: </th>
                     <th>Direction: </th>
                     <th>Destination: </th>
+                    <th>Next Stop: </th>
                     <th>Seating Available: </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in data.model)
+                @foreach (var item in data.bus)
                 {
                     <tr>
+                        <th>@item.VehicleID </th>
                         <th>@item.Direction </th>
                         <th>@item.destination </th>
+                        <th>@item.next_stop_name</th>
                         <th>@item.estimated_seat_availability</th>
                     </tr>
                 }
             </tbody>
         </table>
     }
-    else
-    {
-        <h2>Finished!</h2>
-    }
+    
 }
 
 @code {
     private string? routeNum;
-
     private RootModel data = null;
     protected override async Task OnInitializedAsync()
     {
