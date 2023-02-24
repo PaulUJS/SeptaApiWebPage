@@ -19,7 +19,7 @@ namespace BlazorWebApp.Services
         public async Task<RootModel> getData(string id)
         {
    
-            string response = await httpClient.GetStringAsync($"https://www3.septa.org/api/TransitView/index.php/{id}");
+            string response = await httpClient.GetStringAsync($"https://www3.septa.org/api/TransitView/index.php?route={id}");
             RootModel data = JsonConvert.DeserializeObject<RootModel>(response);
             return data;
         }
